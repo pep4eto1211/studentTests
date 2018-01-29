@@ -1,0 +1,34 @@
+﻿@model IEnumerable<studentsTest.Models.TestListVeiwModel>
+
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My tests</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Test name
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TestName)
+                </td>
+                <td>
+                    @Html.ActionLink("Solve", "Solve", new { item.TestId }) 
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
