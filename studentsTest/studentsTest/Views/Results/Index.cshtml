@@ -1,20 +1,20 @@
-﻿@model IEnumerable<studentsTest.Models.TestListVeiwModel>
+﻿@model IEnumerable<studentsTest.Models.Results>
 
 @{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>My tests</h2>
+<h2>Test results for @ViewBag.UserName</h2>
 
 <table class="table">
     <thead>
         <tr>
             <th>
-                Test name
+                @Html.DisplayNameFor(model => model.Test)
             </th>
             <th>
-                Actions
+                @Html.DisplayNameFor(model => model.Result)
             </th>
         </tr>
     </thead>
@@ -23,10 +23,10 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TestName)
+                    @Html.DisplayFor(modelItem => item.Test.TestName)
                 </td>
                 <td>
-                    @Html.ActionLink("Solve", "Solve", new { item.TestId }) 
+                    @Html.DisplayFor(modelItem => item.Result)
                 </td>
             </tr>
         }

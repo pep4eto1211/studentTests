@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using studentsTest.Models;
 
 namespace studentsTest
 {
@@ -22,6 +24,8 @@ namespace studentsTest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var connection = @"Server=CMP-00102\SQLEXPRESS2012;Database=StudentTests;Trusted_Connection=True;";
+            services.AddDbContext<StudentTestsContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -43,7 +47,7 @@ namespace studentsTest
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Tests}/{action=Index}/{id?}");
             });
         }
     }
