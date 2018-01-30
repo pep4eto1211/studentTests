@@ -11,14 +11,17 @@
     @for (int i = 0; i < Model.QuestionOptions.Count; i++)
     {
         string value = i == Model.CorrectAnswerIndex ? "1" : "0";
-        @Html.ActionLink(Model.QuestionOptions.ToList()[i].OptionText, "ReceiveAnswer", new
-   {
-       answer = i == Model.CorrectAnswerIndex,
-       questionCount = ViewBag.QuestionCount,
-       currentQuestion = ViewBag.CurrentQuestion,
-       score = ViewBag.Score,
-       testId = ViewBag.TestId
-   })
-        <br />
+        <a class="answer-option-link" href="@Url.Action("ReceiveAnswer", new
+            {
+                answer = i == Model.CorrectAnswerIndex,
+                questionCount = ViewBag.QuestionCount,
+                currentQuestion = ViewBag.CurrentQuestion,
+                score = ViewBag.Score,
+                testId = ViewBag.TestId
+            })">
+            <div class="answer-option">
+                @Model.QuestionOptions.ToList()[i].OptionText
+            </div>
+        </a>
     }
 </div>

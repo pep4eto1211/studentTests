@@ -38,3 +38,22 @@ footer {
     position:fixed;
     bottom:0;
 }
+
+.answer-option {
+    padding:5px;
+    text-align:center;
+    text-decoration:none;
+}
+
+.answer-option:hover {
+    background-color:#eeeeee;
+    text-decoration:none;
+}
+
+a{
+    text-decoration:none;
+}
+
+a:hover {
+    text-decoration: none;
+}
