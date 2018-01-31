@@ -8,9 +8,8 @@ namespace studentsTest.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public int Result { get; set; }
-        public int TestId { get; set; }
+        public string TestName { get; set; }
 
-        public Tests Test { get; set; }
         public Users User { get; set; }
     }
 }

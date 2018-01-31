@@ -6,24 +6,28 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using studentsTest.Models;
+using studentsTest.Services;
 
 namespace studentsTest.Controllers
 {
     public class TestsController : Controller
     {
         private readonly StudentTestsContext _context;
+        private readonly ITeacherSystemService _teacherSystemService;
 
-        public TestsController(StudentTestsContext context)
+        public TestsController(StudentTestsContext context, ITeacherSystemService teacherSystemService)
         {
             _context = context;
+            _teacherSystemService = teacherSystemService;
         }
 
         // GET: Tests
         public async Task<IActionResult> Index()
         {
+            PopulateTestsFromTeacherSystem();
             return View(await _context.Tests.ToListAsync());
         }
-
+        
         // GET: Tests/Details/5
         public async Task<IActionResult> Solve(int? id)
         {
@@ -85,11 +89,13 @@ namespace studentsTest.Controllers
 
         private async Task SaveScoreForUser(int testId, int score)
         {
+            var test = await  _context.Tests.Where(e => e.Id == testId).SingleOrDefaultAsync();
+            string testName = test.TestName;
             _context.Results.Add(new Results()
             {
                 Result = score,
                 UserId = 1,
-                TestId = testId
+                TestName = testName
             });
 
             await _context.SaveChangesAsync();
@@ -103,6 +109,11 @@ namespace studentsTest.Controllers
         private bool TestsExists(int id)
         {
             return _context.Tests.Any(e => e.Id == id);
+        }
+
+        private void PopulateTestsFromTeacherSystem()
+        {
+            _teacherSystemService.LoadTests();
         }
     }
 }

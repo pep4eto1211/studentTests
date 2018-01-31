@@ -12,7 +12,7 @@ namespace studentsTest.Models
         public virtual DbSet<Tests> Tests { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
-        public StudentTestsContext(DbContextOptions options) : base (options)
+        public StudentTestsContext(DbContextOptions options) : base(options)
         {
 
         }
@@ -51,11 +51,9 @@ namespace studentsTest.Models
             {
                 entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.HasOne(d => d.Test)
-                    .WithMany(p => p.Results)
-                    .HasForeignKey(d => d.TestId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Results_Tests");
+                entity.Property(e => e.TestName)
+                    .IsRequired()
+                    .HasMaxLength(100);
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Results)

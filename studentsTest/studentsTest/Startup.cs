@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using studentsTest.Models;
+using studentsTest.Services;
 
 namespace studentsTest
 {
@@ -24,6 +25,7 @@ namespace studentsTest
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.AddSingleton<ITeacherSystemService, TeacherSystemService>();
             var connection = @"Server=CMP-00102\SQLEXPRESS2012;Database=StudentTests;Trusted_Connection=True;";
             services.AddDbContext<StudentTestsContext>(options => options.UseSqlServer(connection));
         }

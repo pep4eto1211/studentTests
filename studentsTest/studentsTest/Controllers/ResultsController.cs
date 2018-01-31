@@ -21,7 +21,7 @@ namespace studentsTest.Controllers
         // GET: Results
         public async Task<IActionResult> Index()
         {
-            var studentTestsContext = _context.Results.Where(e => e.UserId == 1).OrderByDescending(e => e.Id).Include(r => r.Test).Include(r => r.User);
+            var studentTestsContext = _context.Results.Where(e => e.UserId == 1).OrderByDescending(e => e.Id).Include(r => r.User);
             var user = await _context.Users.Where(e => e.Id == 1).SingleOrDefaultAsync();
             ViewBag.UserName = user.UserName;
             return View(await studentTestsContext.ToListAsync());
